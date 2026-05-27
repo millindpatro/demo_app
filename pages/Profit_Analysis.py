@@ -51,6 +51,37 @@ if "Profit" in df.columns:
 
         st.plotly_chart(fig_profit, use_container_width=True)
 
+
+if "Year Month" in df.columns and "Profit" in df.columns:
+    monthly_profit = df.groupby("Year Month", as_index=False)["Profit"].sum()
+
+    fig1 = px.line(
+        monthly_profit,
+        x="Year Month",
+        y="Profit",
+        markers=True,
+        title="Monthly Profit Trend"
+    )
+
+    st.plotly_chart(fig1, use_container_width=True)
+
+
+
+st.subheader("Yearly Profit Trend")
+
+if "Year" in df.columns and "Profit" in df.columns:
+    yearly_profit = df.groupby("Year", as_index=False)["Profit"].sum()
+
+    fig2 = px.bar(
+        yearly_profit,
+        x="Year",
+        y="Profit",
+        text_auto=True,
+        title="Yearly Profit Trend"
+    )
+
+    st.plotly_chart(fig2, use_container_width=True)
+
 st.subheader("Month Wise Profit Comparison")
 
 if "Month" in df.columns and "Month Number" in df.columns and "Profit" in df.columns:
